@@ -17,8 +17,8 @@ ansible-playbook -i <PATH_TO_INVENTORY> ansible/playbook.yaml
 
 ## TODOS
 
-- [ ]: Automate WordPress website setup (currently lands at /wp-admin/install.php)
-- [ ]: Configure HTTPS
-- [ ]: (maybe) Get domain name?
-- [ ]: Add .env for variables (currently hardcoded in [compose.yaml](compose.yaml))
+- [ ] Automate WordPress website setup (currently lands at /wp-admin/install.php)
+- [ ] Configure HTTPS
+- [ ] (maybe) Get domain name?
+- [ ] Add .env for variables (currently hardcoded in [compose.yaml](compose.yaml))
 
