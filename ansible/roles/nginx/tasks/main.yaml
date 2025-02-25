@@ -1,0 +1,29 @@
+- name: install Nginx
+  apt:
+    name: nginx
+    state: present
+
+- name: copy Nginx config
+  copy:
+    src: nginx.conf
+    dest: /etc/nginx/sites-available/wordpress
+  notify: Restart Nginx
+
+- name: enable Nginx site
+  file:
+    src: /etc/nginx/sites-available/wordpress
+    dest: /etc/nginx/sites-enabled/wordpress
+    state: link
+  notify: Restart Nginx
+
+- name: remove default Nginx site
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
+  notify: Restart Nginx
+
+- name: install Certbot for TLS
+  apt:
+    name: certbot
+    state: present
+

@@ -1,0 +1,9 @@
+- name: copy docker-compose.yml
+  copy:
+    src: ../../../compose.yaml
+    dest: /home/ubuntu/compose.yaml
+
+- name: start Docker containers
+  command: docker compose up -d
+  args:
+    chdir: /home/ubuntu
