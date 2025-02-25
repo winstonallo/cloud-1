@@ -1,2 +1,0 @@
-[webserver]
-13.49.225.214 ansible_user=ubuntu ansible_ssh_private_key_file=/home/abied-ch/.ssh/abied-ch-campus.pem
