@@ -1,9 +1,26 @@
-- name: copy docker-compose.yml
+- name: copy compose.yaml
   copy:
-    src: ../../../compose.yaml
-    dest: /home/ubuntu/compose.yaml
+    src: ../../../compose.yaml 
+    dest: /home/ubuntu/
+
+- name: copy services
+  copy:
+    src: ../../../services 
+    dest: /home/ubuntu
+
+- name: copy secrets
+  copy:
+    src: ../../../.env 
+    dest: /home/ubuntu/
+
+- name: make scripts executable
+  command: chmod +x /home/ubuntu/scripts/wp_setup.sh /home/ubuntu/scripts/wp_install_cli.sh
 
 - name: start Docker containers
   command: docker compose up -d
   args:
     chdir: /home/ubuntu
+
+- name: remove .env 
+  command: rm /home/ubuntu/.env
+

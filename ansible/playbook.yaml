@@ -5,4 +5,4 @@
     - common
     - docker
     - wordpress 
-    - nginx
+    # - nginx
