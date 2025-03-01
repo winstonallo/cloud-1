@@ -3,7 +3,18 @@
     src: ../../../compose.yaml
     dest: /home/ubuntu/compose.yaml
 
+- name: copy wordpress config
+  copy:
+    src: ../../../wordpress
+    dest: /home/ubuntu/
+
+- name: copy mariadb config
+  copy:
+    src: ../../../mariadb 
+    dest: /home/ubuntu
+
+
 - name: start Docker containers
-  command: docker compose up -d
+  command: docker compose up --build -d
   args:
     chdir: /home/ubuntu
