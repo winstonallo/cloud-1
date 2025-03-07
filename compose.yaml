@@ -15,6 +15,7 @@ services:
     image: wordpress:latest
     volumes:
       - wp_data:/var/www/html
+      - ./init_wp.sh:/var/init_wp.sh
     ports:
       - "8080:80"
     environment:
@@ -26,6 +27,7 @@ services:
       - db
     networks:
       - wp-network
+    entrypoint: /var/init_wp.sh
 
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
@@ -42,6 +44,7 @@ services:
 volumes:
   db_data:
   wp_data:
+
 
 networks:
   wp-network:
