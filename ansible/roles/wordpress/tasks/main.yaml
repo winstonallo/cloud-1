@@ -1,6 +1,6 @@
 - name: copy docker-compose.yml
   copy:
-    src: ../../../compose.yaml
+    src: ../../../docker-compose.yaml
     dest: /home/ubuntu/compose.yaml
 
 - name: copy .env
