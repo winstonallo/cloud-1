@@ -17,10 +17,10 @@ ansible-playbook -i <PATH_TO_INVENTORY> ansible/playbook.yaml
 
 ## TODOS
 
-- [ ] Automate WordPress website setup (currently lands at /wp-admin/install.php)
+- [X] Automate WordPress website setup (currently lands at /wp-admin/install.php)
 - [ ] Configure HTTPS
 - [ ] (maybe) Get domain name?
-- [ ] Add .env for variables (currently hardcoded in [compose.yaml](compose.yaml))
+- [X] Add .env for variables (currently hardcoded in [compose.yaml](compose.yaml))
 
 docker exec -it  $(echo -n  $(docker ps --filter "ancestor=wordpress:latest" --format "{{.ID}}")) /bin/bash -c "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli  && wp-cli core install --allow-root --url=188.245.104.21 --tit
 le=asdf --admin_user=goos --admin_password=goos --admin_email=test@test.com"
