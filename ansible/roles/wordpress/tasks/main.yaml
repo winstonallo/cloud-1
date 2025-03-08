@@ -2,12 +2,11 @@
   copy:
     src: ../../../compose.yaml
     dest: /home/ubuntu/compose.yaml
-    
-- name: copy init_wp.sh script
+
+- name: copy .env
   copy:
-    src: ../../../init_wp.sh
-    dest: /home/ubuntu/init_wp.sh
-    mode: 0777
+    src: ../../../.env
+    dest: /home/ubuntu/.env
 
 - name: start Docker containers
   command: docker compose up -d
@@ -17,5 +16,13 @@
 - name: waiting
   command: sleep 10
 
+- name: Get the current IP address
+  set_fact:
+    current_ip: "{{ ansible_default_ipv4.address }}"
+
 - name: Install wp-cli and WordPress
-  shell: docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && wp-cli core install --allow-root --url=188.245.104.21 --title=another --admin_user=goos --admin_password=goos --admin_email=test@test.com"
+  shell: |
+    docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "
+    curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && 
+    chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && 
+    wp-cli core install --allow-root --url={{ current_ip }} --title=cloud-1 --admin_user=admin --admin_password=admin --admin_email=admin@admin.com"

@@ -29,3 +29,6 @@
     name: ubuntu
     groups: docker
     append: yes
+
+- name: add docker to autostart
+  command: sudo systemctl enable docker
