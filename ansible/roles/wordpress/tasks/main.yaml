@@ -20,9 +20,17 @@
   set_fact:
     current_ip: "{{ ansible_default_ipv4.address }}"
 
+- name: Generate a password for wordpress admin using OpenSSL
+  command: openssl rand -base64 16
+  register: generated_password
+
+- name: Print the generated password
+  debug:
+    msg: "The generated password for wordpress admin is: |{{ generated_password.stdout }}|"
+
 - name: Install WordPress via cli
   shell: |
     docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && 
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && 
-    wp-cli core install --allow-root --url={{ current_ip }} --title=cloud-1 --admin_user=admin --admin_password={{ wp_admin_password }} --admin_email=admin@admin.com"
+    wp-cli core install --allow-root --url={{ current_ip }} --title=cloud-1 --admin_user=admin --admin_password={{ generated_password.stdout }} --admin_email=admin@admin.com"
