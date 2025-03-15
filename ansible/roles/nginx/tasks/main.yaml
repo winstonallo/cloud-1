@@ -12,6 +12,7 @@
 
 - name: setup ufw with ssh & http
   shell: |
+    ufw allow http
     ufw allow https
     ufw allow ssh
     yes | ufw enable
