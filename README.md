@@ -6,7 +6,7 @@ Here is an example:
 ```
 # ansible/inventory
 [webserver]
-<PUBLIC_IP> ansible_user=<USER> ansible_ssh_private_key_file=<PATH_TO_AUTH_KEY>
+<PUBLIC_IP> ansible_user=<USER> ansible_ssh_private_key_file=<PATH_TO_AUTH_KEY> domain=<DOMAIN_NAME>
 ```
 You can also configure it to use password authentication but that would be cringe.
 
