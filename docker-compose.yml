@@ -16,7 +16,6 @@ services:
     image: wordpress:latest
     volumes:
       - wp_data:/var/www/html
-      - ./init_wp.sh:/var/init_wp.sh
     ports:
       - "8080:80"
     environment:
