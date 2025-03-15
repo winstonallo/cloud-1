@@ -1,6 +1,10 @@
 - name: Deploy WordPress
   hosts: webserver
   become: yes
+  vars_prompt:
+    - name: wp_admin_password
+      prompt: "Enter WordPress admin password"
+      private: yes
   roles:
     - common
     - docker
