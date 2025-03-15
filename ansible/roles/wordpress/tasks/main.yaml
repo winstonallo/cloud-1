@@ -25,4 +25,6 @@
     docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && 
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && 
-    wp-cli core install --allow-root --url={{ current_ip }} --title=cloud-1 --admin_user=admin --admin_password=admin --admin_email=admin@admin.com"
+    wp-cli core install --allow-root --url=https://arthurbiedcharreton.com --title=cloud-1 --admin_user=admin --admin_password=admin --admin_email=admin@admin.com &&
+    wp-cli option update home http://arthurbiedcharreton.com --allow-root &&
+    wp-cli option update home http://arthurbiedcharreton.com --allow-root"
