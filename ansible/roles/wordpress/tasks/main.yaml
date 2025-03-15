@@ -16,10 +16,6 @@
 - name: waiting
   command: sleep 10
 
-- name: Get the current IP address
-  set_fact:
-    current_ip: "{{ ansible_default_ipv4.address }}"
-
 - name: Generate a password for wordpress admin using OpenSSL
   command: openssl rand -base64 16
   register: generated_password
