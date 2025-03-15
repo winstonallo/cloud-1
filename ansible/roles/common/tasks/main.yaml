@@ -1,3 +1,7 @@
+
+- name: Print domain name
+  debug:
+    msg: "domain: |{{ domain }}|"
 - name: update apt cache
   apt:
     update_cache: yes

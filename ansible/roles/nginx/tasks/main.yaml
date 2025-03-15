@@ -3,9 +3,37 @@
     name: nginx
     state: present
 
+- name: install Certbot for TLS
+  apt:
+    name: 
+      - certbot
+      - python3-certbot-nginx
+    state: present
+
+- name: setup ufw with ssh & http
+  shell: |
+    ufw allow https
+    ufw allow ssh
+    yes | ufw enable
+
+- name: check if certificate already exists
+  stat:
+    path: /etc/letsencrypt/live/{{ domain }}/fullchain.pem
+  register: cert_file
+
+- name: obtain SSL certifcate with Certbot
+  shell: certbot certonly --nginx -d {{ domain }} --non-interactive --agree-tos --email abied-ch@student.42vienna.com
+  when: not cert_file.stat.exists
+
+- name: SSL certificate auto-renewal
+  cron:
+    name: "certbot renewal"
+    job: "certbot renew --quiet"
+    special_time: daily
+
 - name: copy Nginx config
-  copy:
-    src: nginx.conf
+  ansible.builtin.template:
+    src: nginx.conf.j2
     dest: /etc/nginx/sites-available/wordpress
   notify: Restart Nginx
 
@@ -21,32 +49,3 @@
     path: /etc/nginx/sites-enabled/default
     state: absent
   notify: Restart Nginx
-
-- name: install Certbot for TLS
-  apt:
-    name: 
-      - certbot
-      - python3-certbot-nginx
-    state: present
-
-- name: setup ufw with ssh & http
-  shell: |
-    ufw allow http
-    ufw allow https
-    ufw allow ssh
-    yes | ufw enable
-
-- name: check if certificate already exists
-  stat:
-    path: /etc/letsencrypt/live/arthurbiedcharreton.com/fullchain.pem
-  register: cert_file
-
-- name: obtain SSL certifcate with Certbot
-  shell: certbot --nginx -d arthurbiedcharreton.com --non-interactive --agree-tos --email abied-ch@student.42vienna.com
-  when: not cert_file.stat.exists
-
-- name: SSL certificate auto-renewal
-  cron:
-    name: "certbot renewal"
-    job: "certbot renew --quiet"
-    special_time: daily

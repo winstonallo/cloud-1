@@ -1,16 +1,16 @@
 server {
     listen 80;
-    server_name arthurbiedcharreton.com;
+    server_name {{ domain }};
     
     return 301 https://$host$request_uri;
 }
 
 server {
     listen 443 ssl;
-    server_name arthurbiedcharreton.com;
+    server_name {{ domain }};
 
-    ssl_certificate /etc/letsencrypt/live/arthurbiedcharreton.com/fullchain.pem;
-    ssl_certificate_key /etc/letsencrypt/live/arthurbiedcharreton.com/privkey.pem;
+    ssl_certificate /etc/letsencrypt/live/{{ domain }}/fullchain.pem;
+    ssl_certificate_key /etc/letsencrypt/live/{{ domain }}/privkey.pem;
     ssl_protocols TLSv1.2 TLSv1.3;
     ssl_prefer_server_ciphers on;
     ssl_ciphers ECDHE-RSA-AES256-GCM-SHA512:DHE-RSA-AES256-GCM-SHA512:ECDHE-RSA-AES256-GCM-SHA384:DHE-RSA-AES256-GCM-SHA384;
