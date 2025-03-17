@@ -14,7 +14,7 @@
     chdir: /home/ubuntu
 
 - name: waiting
-  command: sleep 10
+  command: sleep 30
 
 - name: Generate a password for wordpress admin using OpenSSL
   command: openssl rand -base64 16
