@@ -14,10 +14,3 @@ Once that's done, run:
 ```sh
 ansible-playbook -i <PATH_TO_INVENTORY> ansible/playbook.yaml
 ```
-
-## TODOS
-
-- [X] Automate WordPress website setup (currently lands at /wp-admin/install.php)
-- [ ] Configure HTTPS
-- [ ] (maybe) Get domain name?
-- [X] Add .env for variables (currently hardcoded in [compose.yaml](compose.yaml))
