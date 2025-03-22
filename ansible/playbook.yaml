@@ -2,7 +2,6 @@
   hosts: webserver
   become: yes
   roles:
-    - common
-    - docker
+    - dependencies
     - wordpress 
     - nginx
