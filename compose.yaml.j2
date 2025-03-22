@@ -36,6 +36,7 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ROOT_PASSWORD: {{ mysql_root_password }}
+      PMA_ABSOLUTE_URI: https://{{ domain }}/phpmyadmin/
     depends_on:
       - db
     networks:
