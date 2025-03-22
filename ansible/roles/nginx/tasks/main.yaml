@@ -10,12 +10,28 @@
       - python3-certbot-nginx
     state: present
 
-- name: setup ufw with ssh & http
-  shell: |
-    ufw allow http
-    ufw allow https
-    ufw allow ssh
-    yes | ufw enable
+- name: Add SSH to ufw allowed
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: '22'
+
+- name: Add HTTP to ufw allowed
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: '80'
+
+- name: Add HTTPS to ufw allowed
+  community.general.ufw:
+    rule: allow
+    proto: tcp
+    port: '443'
+
+- name: ufw enable
+  community.general.ufw:
+    state: enabled
+    policy: deny 
 
 - name: check if certificate already exists
   stat:
