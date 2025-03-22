@@ -1,17 +1,17 @@
 - name: copy compose.yml
   template:
     src: ../../../compose.yaml.j2
-    dest: /home/ubuntu/compose.yaml
+    dest: /home/{{ ansible_user }}/compose.yaml
 
 - name: copy .env
   copy:
     src: ../../../.env
-    dest: /home/ubuntu/.env
+    dest: /home/{{ ansible_user }}/.env
 
 - name: start Docker containers
   command: docker compose up -d
   args:
-    chdir: /home/ubuntu
+    chdir: /home/{{ ansible_user }}
 
 - name: waiting
   command: sleep 30
