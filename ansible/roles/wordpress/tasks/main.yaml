@@ -14,15 +14,7 @@
     chdir: /home/{{ ansible_user }}
 
 - name: waiting
-  command: sleep 30
-
-- name: Generate a password for wordpress admin using OpenSSL
-  command: openssl rand -base64 16
-  register: generated_password
-
-- name: Print the generated password
-  debug:
-    msg: "The generated password for wordpress admin is: |{{ generated_password.stdout }}|"
+  command: sleep 10
 
 - name: Install WordPress via cli
   shell: |

@@ -4,6 +4,7 @@
     - secrets.yaml
   become: yes
   roles:
+    - validate
     - common
     - docker
     - wordpress 
