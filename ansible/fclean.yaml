@@ -1,0 +1,22 @@
+- name: Deploy WordPress
+  hosts: webserver
+  become: yes
+  tasks:
+    - name: Take services down
+      command: docker compose down
+      args:
+        chdir: /home/{{ ansible_user }}
+    - name: Remove unused volumes
+      shell: sh -c "docker volume rm $(docker volume ls -q)"
+      ignore_errors: yes
+    - name: Remove stopped containers and networks
+      shell: docker system prune -a -f
+    - name: Uninstall nginx
+      apt:
+        name:
+          - nginx
+        state: absent
+    - name: Remove nginx config
+      file:
+        path: /etc/nginx/sites-enabled/wordpress
+        state: absent

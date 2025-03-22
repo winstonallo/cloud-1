@@ -1,9 +1,9 @@
 - name: Validate domain variable
   ansible.builtin.fail:
-    msg: "The 'domain' variable is not set. Please provide a value for 'domain'."
+    msg: "The 'domain' variable is not set. Please provide a value for 'domain', use https://www.duckdns.org/ to create a free domain."
   when: domain is not defined or domain | length == 0
 
 - name: Validate email variable
   ansible.builtin.fail:
-    msg: "The 'email' variable is not set. Please provide a value for 'email'."
+    msg: "The 'email' variable is not set. Please provide a value for 'email' - needed for certificate creation and wp-admin."
   when: email is not defined or email | length == 0

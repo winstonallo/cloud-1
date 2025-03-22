@@ -3,11 +3,6 @@
     src: ../../../compose.yaml.j2
     dest: /home/{{ ansible_user }}/compose.yaml
 
-- name: copy .env
-  copy:
-    src: ../../../.env
-    dest: /home/{{ ansible_user }}/.env
-
 - name: start Docker containers
   command: docker compose up -d
   args:
@@ -21,5 +16,5 @@
     docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && 
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && 
-    wp-cli core install --allow-root --url=https://{{ domain }} --title=cloud-1 --admin_user=admin --admin_password={{ wpadmin_password }} --admin_email={{ email }} &&
+    wp-cli core install --allow-root --url=https://{{ domain }} --title=cloud-1 --admin_user={{ wpadmin_user }} --admin_password={{ wpadmin_password }} --admin_email={{ email }} &&
     wp-cli option update home http://{{ domain }} --allow-root && wp-cli option update home http://{{ domain }} --allow-root"
