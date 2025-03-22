@@ -23,7 +23,7 @@
   register: cert_file
 
 - name: obtain SSL certifcate with Certbot
-  shell: certbot certonly --nginx -d {{ domain }} --non-interactive --agree-tos --email abied-ch@student.42vienna.com
+  shell: certbot certonly --nginx -d {{ domain }} --non-interactive --agree-tos --email {{ email }}
   when: not cert_file.stat.exists
 
 - name: SSL certificate auto-renewal
