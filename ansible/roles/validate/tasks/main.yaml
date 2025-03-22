@@ -1,0 +1,9 @@
+- name: Validate domain variable
+  ansible.builtin.fail:
+    msg: "The 'domain' variable is not set. Please provide a value for 'domain'."
+  when: domain is not defined or domain | length == 0
+
+- name: Validate email variable
+  ansible.builtin.fail:
+    msg: "The 'email' variable is not set. Please provide a value for 'email'."
+  when: email is not defined or email | length == 0

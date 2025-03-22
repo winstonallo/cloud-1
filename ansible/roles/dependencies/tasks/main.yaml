@@ -40,9 +40,9 @@
       - containerd.io
     state: present
 
-- name: add ubuntu user to docker group
+- name: add "{{ ansible_user }}" user to docker group
   user:
-    name: ubuntu
+    name: "{{ ansible_user }}"
     groups: docker
     append: yes
 

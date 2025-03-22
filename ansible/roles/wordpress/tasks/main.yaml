@@ -1,33 +1,25 @@
 - name: copy compose.yml
-  copy:
-    src: ../../../compose.yaml
-    dest: /home/ubuntu/compose.yaml
+  template:
+    src: ../../../compose.yaml.j2
+    dest: /home/{{ ansible_user }}/compose.yaml
 
 - name: copy .env
   copy:
     src: ../../../.env
-    dest: /home/ubuntu/.env
+    dest: /home/{{ ansible_user }}/.env
 
 - name: start Docker containers
   command: docker compose up -d
   args:
-    chdir: /home/ubuntu
+    chdir: /home/{{ ansible_user }}
 
 - name: waiting
-  command: sleep 3
-
-- name: Generate a password for wordpress admin using OpenSSL
-  command: openssl rand -base64 16
-  register: generated_password
-
-- name: Print the generated password
-  debug:
-    msg: "The generated password for wordpress admin is: |{{ generated_password.stdout }}|"
+  command: sleep 10
 
 - name: Install WordPress via cli
   shell: |
     docker exec $(docker ps --filter "ancestor=wordpress:latest" --format "{{ '{{' }}.ID{{ '}}' }}") /bin/bash -c "
     curl -O https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar && 
     chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp-cli && 
-    wp-cli core install --allow-root --url=https://{{ domain }} --title=cloud-1 --admin_user=admin --admin_password={{ generated_password.stdout }} --admin_email={{ email }} &&
+    wp-cli core install --allow-root --url=https://{{ domain }} --title=cloud-1 --admin_user=admin --admin_password={{ wpadmin_password }} --admin_email={{ email }} &&
     wp-cli option update home http://{{ domain }} --allow-root && wp-cli option update home http://{{ domain }} --allow-root"

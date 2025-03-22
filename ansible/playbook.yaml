@@ -1,7 +1,10 @@
 - name: Deploy WordPress
   hosts: webserver
+  vars_files:
+    - secrets.yaml
   become: yes
   roles:
+    - validate
     - dependencies
     - wordpress 
     - nginx
